@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - AgnicoMine Ltd</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            margin: 0;
+        }
+        header {
+            background: #0b1e2d;
+            color: white;
+            padding: 15px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            background: #ddd;
+            border-radius: 10px;
+        }
+        .progress {
+            width: 90%;
+            background: green;
+            color: white;
+            padding: 8px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        select, input {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>AgnicoMine Ltd - Inheritance Portal</h2>
+</header>
+
+<div class="container">
+
+    <!-- Welcome -->
+    <div class="card">
+        <h3>Welcome, David Overstreet</h3>
+    </div>
+
+    <!-- Value -->
+    <div class="card">
+        <h3>Estimated Inheritance Value</h3>
+        <p style="font-size: 24px; color: green;"><strong>$6,000,000</strong></p>
+    </div>
+
+    <!-- Progress -->
+    <div class="card">
+        <h3>Process Progress</h3>
+
+        <div class="progress-bar">
+            <div class="progress">90% Complete</div>
+        </div>
+
+        <ul>
+            <li>Change of Ownership ✅</li>
+            <li>Payment of Insurance ✅</li>
+            <li>Processing & Release of $6,000,000 ⏳</li>
+        </ul>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="card">
+        <h3>Select Payment Method</h3>
+
+        <select id="paymentMethod" onchange="showOption(this.value)">
+            <option value="">-- Choose Option --</option>
+            <option value="mail">Mailing of Check</option>
+            <option value="bank">Bank Deposit</option>
+        </select>
+
+        <!-- Mailing Address -->
+        <div id="mailOption" style="display:none;">
+            <h4>Enter Mailing Address</h4>
+            <input type="text" id="mailAddress" placeholder="Full Address">
+        </div>
+
+        <!-- Bank Details -->
+        <div id="bankOption" style="display:none;">
+            <h4>Enter Bank Details</h4>
+            <input type="text" id="bankName" placeholder="Bank Name">
+            <input type="text" id="accountNumber" placeholder="Account Number">
+            <input type="text" id="accountName" placeholder="Account Name">
+        </div>
+
+        <button onclick="submitForm()">Submit Request</button>
+
+        <p id="message" style="margin-top:15px;"></p>
+    </div>
+
+    <!-- Status -->
+    <div class="card">
+        <h3>Status Update</h3>
+        <p>Your claim is at the final stage. Please complete your payment selection to proceed.</p>
+    </div>
+
+</div>
+
+<script>
+function showOption(value) {
+    document.getElementById("mailOption").style.display = "none";
+    document.getElementById("bankOption").style.display = "none";
+
+    if (value === "mail") {
+        document.getElementById("mailOption").style.display = "block";
+    } 
+    else if (value === "bank") {
+        document.getElementById("bankOption").style.display = "block";
+    }
+}
+
+function submitForm() {
+    const method = document.getElementById("paymentMethod").value;
+    const message = document.getElementById("message");
+
+    if (method === "") {
+        message.style.color = "red";
+        message.innerText = "Please select a payment method.";
+        return;
+    }
+
+    if (method === "mail") {
+        const address = document.getElementById("mailAddress").value.trim();
+        if (address === "") {
+            message.style.color = "red";
+            message.innerText = "Please enter your mailing address.";
+            return;
+        }
+    }
+
+    if (method === "bank") {
+        const bank = document.getElementById("bankName").value.trim();
+        const accNum = document.getElementById("accountNumber").value.trim();
+        const accName = document.getElementById("accountName").value.trim();
+
+        if (!bank || !accNum || !accName) {
+            message.style.color = "red";
+            message.innerText = "Please complete all bank details.";
+            return;
+        }
+    }
+
+    message.style.color = "green";
+    message.innerText = "Request submitted successfully. Processing your payment...";
+}
+</script>
+
+</body>
+</html>

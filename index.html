@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgnicoMine Ltd - Login</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0b1e2d;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+        }
+        button {
+            background: gold;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>AgnicoMine Ltd</h1>
+<h3>Inheritance Claim Portal</h3>
+
+<form onsubmit="return loginUser()">
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button type="submit">Login</button>
+</form>
+
+<script>
+function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (email === "davidoverstreet56@gmail.com" && password === "Davidot24") {
+        window.location.href = "dashboard.html";
+        return false;
+    } else {
+        alert("Invalid login details");
+        return false;
+    }
+}
+</script>
+
+</body>
+</html>
