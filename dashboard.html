@@ -2,9 +2,16 @@
 <html>
 <head>
     <title>Dashboard - AgnicoMine Ltd</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Agnico_Eagle_Logo.svg.png">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #0b1e2d, #1a2f45);
             margin: 0;
             color: #333;
@@ -14,16 +21,23 @@
         header {
             background: linear-gradient(90deg, #0b1e2d, gold);
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
-            font-size: 22px;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        .container {
-            padding: 20px;
+        h3 {
+            font-weight: 600;
+            color: #0b1e2d;
+            border-left: 5px solid gold;
+            padding-left: 10px;
         }
+
+        .container { padding: 20px; }
 
         .card {
             background: white;
@@ -35,10 +49,7 @@
             animation: slideUp 0.8s ease forwards;
         }
 
-        .card:hover {
-            transform: scale(1.02);
-            transition: 0.3s;
-        }
+        .card:hover { transform: scale(1.02); transition: 0.3s; }
 
         .progress-bar {
             width: 100%;
@@ -55,21 +66,15 @@
             border-radius: 20px;
             text-align: center;
             animation: loadBar 2s ease-in-out;
+            font-weight: 600;
         }
 
-        select, input {
+        input {
             padding: 12px;
             margin-top: 10px;
             width: 100%;
             border-radius: 8px;
             border: 1px solid #ccc;
-            transition: 0.3s;
-        }
-
-        select:focus, input:focus {
-            border-color: gold;
-            outline: none;
-            box-shadow: 0 0 8px gold;
         }
 
         button {
@@ -81,34 +86,13 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
         }
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px gold;
-        }
+        #message, #finalMessage { font-weight: bold; }
 
-        #message {
-            font-weight: bold;
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes loadBar {
-            from {width: 0;}
-            to {width: 90%;}
-        }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes slideUp { to { transform: translateY(0); opacity: 1; } }
+        @keyframes loadBar { from {width: 0;} to {width: 90%;} }
     </style>
 </head>
 <body>
@@ -125,7 +109,7 @@
 
     <div class="card">
         <h3>Estimated Inheritance Value</h3>
-        <p style="font-size: 28px; color: gold;"><strong>$6,000,000</strong></p>
+        <p style="font-size: 30px; color: gold; font-weight:700;"><strong>$6,000,000</strong></p>
     </div>
 
     <div class="card">
@@ -143,7 +127,10 @@
     <div class="card">
         <h3>Deposit Information</h3>
 
-        <h4>Recipient Details</h4>
+        <h4>Recipient Name</h4>
+        <input type="text" value="David Overstreet" readonly>
+
+        <h4>Bank Name</h4>
         <input type="text" value="Tucson Federal Credit Union" readonly>
 
         <h4>Deposit Address</h4>
@@ -154,64 +141,32 @@
         <input type="text" value="2188 N. Pantano Road" readonly>
         <input type="text" value="#139" readonly>
         <input type="text" value="85715" readonly>
-
-        <button onclick="submitForm()">Submit Request</button>
-        <p id="message"></p>
-    </div>
-
-        <div id="bankOption" style="display:none;">
-            <h4>Enter Bank Details</h4>
-            <input type="text" id="bankName" placeholder="Bank Name">
-            <input type="text" id="accountNumber" placeholder="Account Number">
-            <input type="text" id="accountName" placeholder="Account Name">
-        </div>
-
-        <button onclick="submitForm()">Submit Request</button>
-        <p id="message"></p>
     </div>
 
     <div class="card">
         <h3>Status Update</h3>
-        <p>Your claim is at the final stage. Please complete your payment selection to proceed.</p>
+        <p>Contact AgnicoMine Ltd at info@angicoeagle.com</p>
+
+        <button onclick="completeProcess()">Submit</button>
+        <p id="finalMessage"></p>
     </div>
 
 </div>
 
 <script>
- else if (value === "bank") {
-        document.getElementById("bankOption").style.display = "block";
-    }
-}
+function completeProcess() {
+    const progress = document.querySelector('.progress');
+    const finalMessage = document.getElementById("finalMessage");
 
-function submitForm() {
-    const message = document.getElementById("message");
-    message.style.color = "green";
-    message.innerText = "✔ Request submitted successfully. Processing your deposit...";
-}
-
-    if (method === "mail") {
-        const address = document.getElementById("mailAddress").value.trim();
-        if (address === "") {
-            message.style.color = "red";
-            message.innerText = "Please enter your mailing address.";
-            return;
-        }
+    // Check if progress is already 100%
+    if (progress.innerText !== "100% Complete") {
+        finalMessage.style.color = "red";
+        finalMessage.innerText = "⚠ Please complete process progress to 100% before submitting. Contact info@angicoeagle.com for more information.";
+        return;
     }
 
-    if (method === "bank") {
-        const bank = document.getElementById("bankName").value.trim();
-        const accNum = document.getElementById("accountNumber").value.trim();
-        const accName = document.getElementById("accountName").value.trim();
-
-        if (!bank || !accNum || !accName) {
-            message.style.color = "red";
-            message.innerText = "Please complete all bank details.";
-            return;
-        }
-    }
-
-    message.style.color = "green";
-    message.innerText = "✔ Request submitted successfully. Processing your payment...";
+    finalMessage.style.color = "green";
+    finalMessage.innerText = "✔ Process completed successfully. Funds ready for release.";
 }
 </script>
 
