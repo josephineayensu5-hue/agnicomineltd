@@ -4,79 +4,135 @@
     <title>Dashboard - AgnicoMine Ltd</title>
     <style>
         body {
-            font-family: Arial;
-            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0b1e2d, #1a2f45);
             margin: 0;
+            color: #333;
+            animation: fadeIn 1s ease-in;
         }
+
         header {
-            background: #0b1e2d;
+            background: linear-gradient(90deg, #0b1e2d, gold);
             color: white;
-            padding: 15px;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+
         .container {
             padding: 20px;
         }
+
         .card {
             background: white;
             padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease forwards;
         }
+
+        .card:hover {
+            transform: scale(1.02);
+            transition: 0.3s;
+        }
+
         .progress-bar {
             width: 100%;
             background: #ddd;
-            border-radius: 10px;
+            border-radius: 20px;
+            overflow: hidden;
         }
+
         .progress {
             width: 90%;
-            background: green;
-            color: white;
-            padding: 8px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        select, input {
+            background: linear-gradient(90deg, gold, orange);
+            color: black;
             padding: 10px;
+            border-radius: 20px;
+            text-align: center;
+            animation: loadBar 2s ease-in-out;
+        }
+
+        select, input {
+            padding: 12px;
             margin-top: 10px;
             width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: 0.3s;
         }
+
+        select:focus, input:focus {
+            border-color: gold;
+            outline: none;
+            box-shadow: 0 0 8px gold;
+        }
+
         button {
-            padding: 10px;
-            background: green;
-            color: white;
+            padding: 12px;
+            background: linear-gradient(90deg, gold, orange);
+            color: black;
             border: none;
-            margin-top: 10px;
+            margin-top: 15px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px gold;
+        }
+
+        #message {
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes loadBar {
+            from {width: 0;}
+            to {width: 90%;}
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h2>AgnicoMine Ltd - Inheritance Portal</h2>
+    AgnicoMine Ltd - Inheritance Portal
 </header>
 
 <div class="container">
 
-    <!-- Welcome -->
     <div class="card">
         <h3>Welcome, David Overstreet</h3>
     </div>
 
-    <!-- Value -->
     <div class="card">
         <h3>Estimated Inheritance Value</h3>
-        <p style="font-size: 24px; color: green;"><strong>$6,000,000</strong></p>
+        <p style="font-size: 28px; color: gold;"><strong>$6,000,000</strong></p>
     </div>
 
-    <!-- Progress -->
     <div class="card">
         <h3>Process Progress</h3>
-
         <div class="progress-bar">
             <div class="progress">90% Complete</div>
         </div>
-
         <ul>
             <li>Change of Ownership ✅</li>
             <li>Payment of Insurance ✅</li>
@@ -84,23 +140,25 @@
         </ul>
     </div>
 
-    <!-- Payment Method -->
     <div class="card">
-        <h3>Select Payment Method</h3>
+        <h3>Deposit Information</h3>
 
-        <select id="paymentMethod" onchange="showOption(this.value)">
-            <option value="">-- Choose Option --</option>
-            <option value="mail">Mailing of Check</option>
-            <option value="bank">Bank Deposit</option>
-        </select>
+        <h4>Recipient Details</h4>
+        <input type="text" value="Tucson Federal Credit Union" readonly>
 
-        <!-- Mailing Address -->
-        <div id="mailOption" style="display:none;">
-            <h4>Enter Mailing Address</h4>
-            <input type="text" id="mailAddress" placeholder="Full Address">
-        </div>
+        <h4>Deposit Address</h4>
+        <input type="text" value="42435 Tucson" readonly>
+        <input type="text" value="AZ 85733" readonly>
 
-        <!-- Bank Details -->
+        <h4>Your Address</h4>
+        <input type="text" value="2188 N. Pantano Road" readonly>
+        <input type="text" value="#139" readonly>
+        <input type="text" value="85715" readonly>
+
+        <button onclick="submitForm()">Submit Request</button>
+        <p id="message"></p>
+    </div>
+
         <div id="bankOption" style="display:none;">
             <h4>Enter Bank Details</h4>
             <input type="text" id="bankName" placeholder="Bank Name">
@@ -109,11 +167,9 @@
         </div>
 
         <button onclick="submitForm()">Submit Request</button>
-
-        <p id="message" style="margin-top:15px;"></p>
+        <p id="message"></p>
     </div>
 
-    <!-- Status -->
     <div class="card">
         <h3>Status Update</h3>
         <p>Your claim is at the final stage. Please complete your payment selection to proceed.</p>
@@ -122,27 +178,16 @@
 </div>
 
 <script>
-function showOption(value) {
-    document.getElementById("mailOption").style.display = "none";
-    document.getElementById("bankOption").style.display = "none";
-
-    if (value === "mail") {
-        document.getElementById("mailOption").style.display = "block";
-    } 
-    else if (value === "bank") {
+ else if (value === "bank") {
         document.getElementById("bankOption").style.display = "block";
     }
 }
 
 function submitForm() {
-    const method = document.getElementById("paymentMethod").value;
     const message = document.getElementById("message");
-
-    if (method === "") {
-        message.style.color = "red";
-        message.innerText = "Please select a payment method.";
-        return;
-    }
+    message.style.color = "green";
+    message.innerText = "✔ Request submitted successfully. Processing your deposit...";
+}
 
     if (method === "mail") {
         const address = document.getElementById("mailAddress").value.trim();
@@ -166,7 +211,7 @@ function submitForm() {
     }
 
     message.style.color = "green";
-    message.innerText = "Request submitted successfully. Processing your payment...";
+    message.innerText = "✔ Request submitted successfully. Processing your payment...";
 }
 </script>
 
