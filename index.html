@@ -2,49 +2,137 @@
 <html>
 <head>
     <title>AgnicoMine Ltd - Login</title>
+
+    <link rel="icon" href="Agnico_Eagle_Logo.svg.png">
+
     <style>
         body {
             font-family: Arial;
-            background: #0b1e2d;
+            background: linear-gradient(135deg, #0b1e2d, #1a2f45);
             color: white;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 80px;
         }
+
         input, button {
             padding: 10px;
-            margin: 10px;
-            width: 250px;
+            margin: 8px;
+            width: 260px;
+            border-radius: 6px;
+            border: none;
         }
+
         button {
             background: gold;
-            border: none;
             cursor: pointer;
+            font-weight: bold;
+        }
+
+        .box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        .link {
+            color: gold;
+            cursor: pointer;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
 <h1>AgnicoMine Ltd</h1>
-<h3>Inheritance Claim Portal</h3>
+<h3>Inheritance Portal Login</h3>
 
-<form onsubmit="return loginUser()">
-    <input type="email" id="email" placeholder="Email" required><br>
-    <input type="password" id="password" placeholder="Password" required><br>
-    <button type="submit">Login</button>
-</form>
+<div class="box">
+
+    <!-- LOGIN -->
+    <input type="email" id="email" placeholder="Email"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="loginUser()">Login</button>
+
+    <span class="link" onclick="showChange()">Change Password</span>
+    <span class="link" onclick="showReset()">Forgot Password?</span>
+
+    <!-- CHANGE PASSWORD -->
+    <div id="changeBox" style="display:none;">
+        <h4>Change Password</h4>
+        <input type="password" id="oldPass" placeholder="Current Password"><br>
+        <input type="password" id="newPass" placeholder="New Password"><br>
+        <button onclick="changePassword()">Update Password</button>
+    </div>
+
+    <!-- RESET PASSWORD -->
+    <div id="resetBox" style="display:none;">
+        <h4>Reset Password</h4>
+        <input type="email" id="resetEmail" placeholder="Enter Email"><br>
+        <button onclick="resetPassword()">Reset</button>
+    </div>
+
+    <p id="message"></p>
+
+</div>
 
 <script>
+let storedPassword = localStorage.getItem("userPass") || "Davidot24";
+
 function loginUser() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (email === "davidoverstreet56@gmail.com" && password === "Davidot24") {
+    if (email === "davidoverstreet56@gmail.com" && password === storedPassword) {
         window.location.href = "dashboard.html";
-        return false;
     } else {
-        alert("Invalid login details");
-        return false;
+        showMsg("Invalid login details", "red");
     }
+}
+
+function showChange() {
+    document.getElementById("changeBox").style.display = "block";
+    document.getElementById("resetBox").style.display = "none";
+}
+
+function showReset() {
+    document.getElementById("resetBox").style.display = "block";
+    document.getElementById("changeBox").style.display = "none";
+}
+
+function changePassword() {
+    const oldPass = document.getElementById("oldPass").value;
+    const newPass = document.getElementById("newPass").value;
+
+    if (oldPass !== storedPassword) {
+        showMsg("Incorrect current password", "red");
+        return;
+    }
+
+    localStorage.setItem("userPass", newPass);
+    storedPassword = newPass;
+
+    showMsg("Password changed successfully", "green");
+}
+
+function resetPassword() {
+    const email = document.getElementById("resetEmail").value;
+
+    if (email === "davidoverstreet56@gmail.com") {
+        localStorage.setItem("userPass", "Davidot24");
+        storedPassword = "Davidot24";
+
+        showMsg("Password reset to default: Davidot24", "green");
+    } else {
+        showMsg("Email not recognized", "red");
+    }
+}
+
+function showMsg(text, color) {
+    const msg = document.getElementById("message");
+    msg.style.color = color;
+    msg.innerText = text;
 }
 </script>
 
