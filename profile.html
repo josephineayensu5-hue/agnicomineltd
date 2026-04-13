@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgnicoMine Ltd - Portal</title>
+
+    <link rel="icon" href="Agnico_Eagle_Logo.svg.png">
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #0b1e2d, #1a2f45);
+            margin: 0;
+            color: white;
+            text-align: center;
+            margin-top: 120px;
+        }
+
+        button {
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, gold, orange);
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>AgnicoMine Ltd Portal</h1>
+
+<button onclick="openProfile()">View Profile</button>
+<button onclick="openTracking()">Track Cheques</button>
+
+<script>
+function openProfile() {
+    const win = window.open("", "_blank");
+    win.document.write(`
+        <html>
+        <head>
+        <title>User Profile</title>
+        <style>
+            body {font-family:Arial;background:#f4f4f4;padding:20px}
+            .card {background:white;padding:20px;border-radius:10px;margin:20px auto;max-width:500px}
+            .progress {background:gold;padding:10px;border-radius:10px;width:90%;text-align:center}
+        </style>
+        </head>
+        <body>
+
+        <div class="card" style="text-align:center">
+            <img src="5972031757873778049.jpg" style="width:120px;height:120px;border-radius:50%"><br>
+            <h2>David Overstreet</h2>
+            <p style="color:green">Verified Account</p>
+        </div>
+
+        <div class="card">
+            <h3>Estimated Inheritance</h3>
+            <h2 style="color:gold">$6,000,000</h2>
+        </div>
+
+        <div class="card">
+            <h3>Progress</h3>
+            <div class="progress" id="prog">90% Complete</div>
+        </div>
+
+        <div class="card">
+            <button onclick="startProcess()">Request for the Mail of $6 Million Cheque</button>
+            <p id="msg"></p>
+        </div>
+
+        <script>
+        function startProcess(){
+            let width = 90;
+            const bar = document.getElementById('prog');
+            const msg = document.getElementById('msg');
+
+            const interval = setInterval(()=>{
+                if(width>=100){
+                    clearInterval(interval);
+                    msg.style.color='red';
+                    msg.innerText='⚠ Outstanding $30,000 must be paid. Contact info@angicoeagle.com';
+                } else {
+                    width++;
+                    bar.style.width = width+'%';
+                    bar.innerText = width+'% Complete';
+                }
+            },50);
+        }
+        <\/script>
+
+        </body>
+        </html>
+    `);
+}
+
+function openTracking() {
+    const win = window.open("", "_blank");
+    win.document.write(`
+        <html>
+        <head><title>Track Cheque</title></head>
+        <body style="font-family:Arial;text-align:center;margin-top:100px;">
+            <h2>⚠ Complete all payments to track cheque</h2>
+        </body>
+        </html>
+    `);
+}
+</script>
+
+</body>
+</html>
