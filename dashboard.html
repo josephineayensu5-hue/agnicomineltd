@@ -1,43 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard - AgnicoMine Ltd</title>
+    <title>AgnicoMine Ltd - Dashboard</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="Agnico_Eagle_Logo.svg.png">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="Agnico_Eagle_Logo.svg.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0b1e2d, #1a2f45);
+            font-family: Arial;
+            background: linear-gradient(135deg,#0b1e2d,#1a2f45);
             margin: 0;
             color: #333;
-            animation: fadeIn 1s ease-in;
         }
 
         header {
-            background: linear-gradient(90deg, #0b1e2d, gold);
+            background: linear-gradient(90deg,#0b1e2d,gold);
             color: white;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        h3 {
-            font-weight: 600;
-            color: #0b1e2d;
-            border-left: 5px solid gold;
-            padding-left: 10px;
+        .container {
+            padding: 20px;
         }
-
-        .container { padding: 20px; }
 
         .card {
             background: white;
@@ -45,129 +33,100 @@
             margin: 20px 0;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transform: translateY(20px);
-            animation: slideUp 0.8s ease forwards;
         }
 
-        .card:hover { transform: scale(1.02); transition: 0.3s; }
-
-        .progress-bar {
-            width: 100%;
-            background: #ddd;
-            border-radius: 20px;
-            overflow: hidden;
+        h3 {
+            border-left: 5px solid gold;
+            padding-left: 10px;
+            color: #0b1e2d;
         }
 
-        .progress {
-            width: 90%;
-            background: linear-gradient(90deg, gold, orange);
-            color: black;
-            padding: 10px;
-            border-radius: 20px;
+        .nav-buttons {
             text-align: center;
-            animation: loadBar 2s ease-in-out;
-            font-weight: 600;
+            margin-top: 40px;
         }
 
-        input {
-            padding: 12px;
-            margin-top: 10px;
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            padding: 12px;
-            background: linear-gradient(90deg, gold, orange);
-            color: black;
+        .nav-buttons button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 16px;
             border: none;
-            margin-top: 15px;
             border-radius: 8px;
+            background: linear-gradient(90deg,gold,orange);
             cursor: pointer;
             font-weight: bold;
         }
 
-        #message, #finalMessage { font-weight: bold; }
-
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-        @keyframes slideUp { to { transform: translateY(0); opacity: 1; } }
-        @keyframes loadBar { from {width: 0;} to {width: 90%;} }
+        canvas {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+        }
     </style>
 </head>
+
 <body>
 
 <header>
-    AgnicoMine Ltd - Inheritance Portal
+    AgnicoMine Ltd - Dashboard
 </header>
 
 <div class="container">
 
-    <div class="card">
-        <h3>Welcome, David Overstreet</h3>
+    <!-- Navigation -->
+    <div class="nav-buttons">
+        <a href="profile.html"><button>View Profile</button></a>
+        <a href="track.html"><button>Track Cheques</button></a>
     </div>
 
+    <!-- About -->
     <div class="card">
-        <h3>Estimated Inheritance Value</h3>
-        <p style="font-size: 30px; color: gold; font-weight:700;"><strong>$6,000,000</strong></p>
+        <h3>About AgnicoMine Ltd</h3>
+        <p>
+            AgnicoMine Ltd operates as part of a globally recognized gold mining and asset management network.
+            The company has operations across Canada, Finland, Australia, and Mexico, focusing on sustainable
+            mining and long-term value creation.
+        </p>
     </div>
 
+    <!-- Company Data -->
     <div class="card">
-        <h3>Process Progress</h3>
-        <div class="progress-bar">
-            <div class="progress">90% Complete</div>
-        </div>
-        <ul>
-            <li>Change of Ownership ✅</li>
-            <li>Payment of Insurance ✅</li>
-            <li>Processing & Release of $6,000,000 ⏳</li>
-        </ul>
+        <h3>Company Data Overview</h3>
+        <p><b>Global Operations:</b> Canada, Australia, Finland, Mexico</p>
+        <p><b>Employees:</b> 16,000+</p>
+        <p><b>Annual Revenue:</b> $11.9 Billion</p>
+        <p><b>Gold Production:</b> 3.4 Million ounces/year</p>
     </div>
 
+    <!-- Chart -->
     <div class="card">
-        <h3>Deposit Information</h3>
-
-        <h4>Recipient Name</h4>
-        <input type="text" value="David Overstreet" readonly>
-
-        <h4>Bank Name</h4>
-        <input type="text" value="Tucson Federal Credit Union" readonly>
-
-        <h4>Deposit Address</h4>
-        <input type="text" value="42435 Tucson" readonly>
-        <input type="text" value="AZ 85733" readonly>
-
-        <h4>Your Address</h4>
-        <input type="text" value="2188 N. Pantano Road" readonly>
-        <input type="text" value="#139" readonly>
-        <input type="text" value="85715" readonly>
-    </div>
-
-    <div class="card">
-        <h3>Status Update</h3>
-        <p>Contact AgnicoMine Ltd at info@angicoeagle.com</p>
-
-        <button onclick="completeProcess()">Submit</button>
-        <p id="finalMessage"></p>
+        <h3>Revenue Growth (2023 - 2025)</h3>
+        <canvas id="revenueChart"></canvas>
     </div>
 
 </div>
 
 <script>
-function completeProcess() {
-    const progress = document.querySelector('.progress');
-    const finalMessage = document.getElementById("finalMessage");
+const ctx = document.getElementById('revenueChart').getContext('2d');
 
-    // Check if progress is already 100%
-    if (progress.innerText !== "100% Complete") {
-        finalMessage.style.color = "red";
-        finalMessage.innerText = "⚠ Please complete process progress to 100% before submitting. Contact info@angicoeagle.com for more information.";
-        return;
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['2023', '2024', '2025'],
+        datasets: [{
+            label: 'Revenue (Billion USD)',
+            data: [6.6, 8.3, 11.9],
+            borderWidth: 3,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true }
+        }
     }
-
-    finalMessage.style.color = "green";
-    finalMessage.innerText = "✔ Process completed successfully. Funds ready for release.";
-}
+});
 </script>
 
 </body>
